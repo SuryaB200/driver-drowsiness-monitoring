@@ -27,7 +27,6 @@ datasets/UL-DD/
 
 # Node & Frontend Build
 frontend/node_modules/
-frontend/dist/
 frontend/.tmp/
 *.tsbuildinfo
 
