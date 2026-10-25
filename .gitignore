@@ -1,0 +1,43 @@
+# Virtual Environment
+.venv/
+env/
+venv/
+ENV/
+
+# Python cache & testing
+__pycache__/
+*.py[cod]
+*$py.class
+*.pytest_cache/
+.coverage
+htmlcov/
+
+# Large Datasets & Archives (Do not commit large binary datasets to Git)
+datasets/processed/
+datasets/NTHU-DDD/
+datasets/UL-DD/
+*.zip
+*.tar
+*.tar.gz
+*.rar
+*.7z
+*.mp4
+*.avi
+*.mkv
+
+# Node & Frontend Build
+frontend/node_modules/
+frontend/dist/
+frontend/.tmp/
+*.tsbuildinfo
+
+# OS & IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Environment Variables & Logs
+.env
+.env.local
+*.log

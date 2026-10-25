@@ -1,0 +1,36 @@
+{
+  "detection": {
+    "ear_threshold": 0.225,
+    "eye_closure_duration_sec": 1.2,
+    "mar_threshold": 0.65,
+    "yawn_duration_sec": 1.8,
+    "head_yaw_threshold": 28.0,
+    "head_pitch_threshold": 22.0,
+    "distraction_duration_sec": 2.0,
+    "temporal_smoothing_alpha": 0.35
+  },
+  "camera": {
+    "selected_device_id": 0,
+    "device_name": "Default Camera",
+    "resolution_width": 1280,
+    "resolution_height": 720,
+    "target_fps": 30,
+    "preview_mirroring": false,
+    "auto_reconnect": true
+  },
+  "audio": {
+    "enable_audio": true,
+    "alert_cooldown_sec": 3.5,
+    "volume": 1.0,
+    "level_1_message": "Warning. Please focus on the road.",
+    "level_2_message": "Alert! Drowsiness detected. Take a safe break.",
+    "level_3_message": "Critical warning! Driver attention required."
+  },
+  "inference": {
+    "preferred_device": "auto",
+    "image_size": 224,
+    "mobilenet_checkpoint": "C:\\DLT project\\checkpoints\\best_mobilenet_v3.pth",
+    "enable_phone_detector": true,
+    "phone_confidence_threshold": 0.45
+  }
+}

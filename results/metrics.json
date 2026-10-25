@@ -1,0 +1,63 @@
+{
+  "evaluation_timestamp": 1792905015.1185606,
+  "model_architecture": "MobileNetV3-Small",
+  "device_tested": "cpu",
+  "total_test_samples": 800,
+  "class_names": [
+    "Alert",
+    "Drowsy"
+  ],
+  "test_accuracy": 0.9062,
+  "precision": 0.9052,
+  "recall": 0.9075,
+  "f1_score": 0.9064,
+  "auc_roc": 0.9616,
+  "confusion_matrix": [
+    [
+      362,
+      38
+    ],
+    [
+      37,
+      363
+    ]
+  ],
+  "classification_report": {
+    "Alert": {
+      "precision": 0.9072681704260651,
+      "recall": 0.905,
+      "f1-score": 0.9061326658322904,
+      "support": 400.0
+    },
+    "Drowsy": {
+      "precision": 0.9052369077306733,
+      "recall": 0.9075,
+      "f1-score": 0.9063670411985019,
+      "support": 400.0
+    },
+    "accuracy": 0.90625,
+    "macro avg": {
+      "precision": 0.9062525390783692,
+      "recall": 0.90625,
+      "f1-score": 0.9062498535153961,
+      "support": 800.0
+    },
+    "weighted avg": {
+      "precision": 0.9062525390783692,
+      "recall": 0.90625,
+      "f1-score": 0.9062498535153961,
+      "support": 800.0
+    }
+  },
+  "latency_benchmarks_ms": {
+    "mean": 7.44,
+    "median": 7.3,
+    "p95": 9.2
+  },
+  "plots_saved": {
+    "confusion_matrix": "/plots/confusion_matrix.png",
+    "roc_curve": "/plots/roc_curve.png",
+    "loss_curves": "/plots/loss_curves.png",
+    "accuracy_curves": "/plots/accuracy_curves.png"
+  }
+}
