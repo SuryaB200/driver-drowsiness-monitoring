@@ -4,6 +4,8 @@
 > **Edge Vision System using MobileNetV3 and Facial Keypoint Tracking**  
 > *Developed for highway commercial fleet operator safety, micro-sleep mitigation, and telematics audit.*
 
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/SuryaB200/driver-drowsiness-monitoring)
+
 ---
 
 ## 1. Abstract

@@ -1,8 +1,25 @@
 import { SystemSettingsData, SafetyEventRecord, ModelMetricsData } from "../types";
 
-const API_BASE = "http://localhost:8000/api";
-export const WS_URL = "ws://localhost:8000/ws/monitor";
-export const BACKEND_URL = "http://localhost:8000";
+const isBrowser = typeof window !== "undefined";
+const isLocal = isBrowser && (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1");
+
+// If running in local development with Vite dev server (port 5173), point to backend at port 8000
+// If running in unified production/cloud deployment, point to the current origin
+const defaultHttp = isBrowser
+  ? (isLocal && window.location.port === "5173"
+      ? "http://localhost:8000"
+      : `${window.location.protocol}//${window.location.host}`)
+  : "http://localhost:8000";
+
+const defaultWs = isBrowser
+  ? (isLocal && window.location.port === "5173"
+      ? "ws://localhost:8000/ws/monitor"
+      : `${window.location.protocol === "https:" ? "wss:" : "ws:"}//${window.location.host}/ws/monitor`)
+  : "ws://localhost:8000/ws/monitor";
+
+export const BACKEND_URL = (import.meta as any).env?.VITE_BACKEND_URL || defaultHttp;
+export const WS_URL = (import.meta as any).env?.VITE_WS_URL || defaultWs;
+const API_BASE = `${BACKEND_URL}/api`;
 
 export async function fetchHealth() {
   const res = await fetch(`${API_BASE}/health`);

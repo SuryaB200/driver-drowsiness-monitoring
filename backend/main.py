@@ -11,7 +11,7 @@ from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
-from backend.config import load_settings, PLOTS_DIR, RESULTS_DIR
+from backend.config import BASE_DIR, load_settings, PLOTS_DIR, RESULTS_DIR
 from backend.services.camera_manager import CameraManager
 from backend.services.events import EventService
 from backend.services.monitoring import DriverMonitoringService
@@ -146,3 +146,8 @@ async def websocket_monitor_endpoint(websocket: WebSocket):
         pass
     except Exception as e:
         print(f"WebSocket session terminated: {e}")
+
+# Mount static frontend production build if present (enables 1-port cloud deployment)
+FRONTEND_DIST = BASE_DIR / "frontend" / "dist"
+if FRONTEND_DIST.exists():
+    app.mount("/", StaticFiles(directory=str(FRONTEND_DIST), html=True), name="frontend")
