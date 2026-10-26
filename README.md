@@ -219,10 +219,9 @@ Open your browser at `http://localhost:5173`.
 
 | Team Member | Project Role | Technical Implementation | Viva Focus |
 | :--- | :--- | :--- | :--- |
-| **Member 1** | Deep Learning Lead | MobileNetV3-Small transfer learning, AdamW scheduler, ONNX export | Depthwise separable convolutions & loss convergence |
-| **Member 2** | Computer Vision Lead | MediaPipe FaceMesh, 6-pt EAR, 8-pt MAR, solvePnP Head Pose | Euclidean geometric ratios & camera pinhole matrix |
-| **Member 3** | Backend & Hardware Lead | FastAPI WebSockets, Windows DirectShow camera manager, events | Asynchronous streaming & hardware lifecycle |
-| **Member 4** | Telematics UI & Audio Lead | React + Vite + TypeScript dashboard, SpeechSynthesis alert engine | Alert prioritization & real-time canvas overlays |
+| **Member 1** | Deep Learning & Model Lead | MobileNetV3-Small transfer learning, PyTorch training pipeline, ONNX runtime export, evaluation benchmarking | Depthwise separable convolutions, loss convergence & AUC-ROC metrics |
+| **Member 2** | Computer Vision & Landmarks Lead | MediaPipe FaceMesh (468 3D landmarks), bilateral EAR calculation, MAR yawn detector, solvePnP Head Pose | Euclidean ocular geometry, head yaw/pitch estimation, and optical pinhole model |
+| **Member 3** | Full-Stack & System Integration Lead | FastAPI WebSocket streaming server, camera lifecycle manager, React 19 + TypeScript dashboard, audio alert engine | Bi-directional WebSocket telemetry, alert priority state machine, and edge latency |
 
 ---
 
