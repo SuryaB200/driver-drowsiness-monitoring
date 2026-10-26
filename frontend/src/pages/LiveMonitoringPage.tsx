@@ -402,7 +402,7 @@ export const LiveMonitoringPage: React.FC<LiveMonitoringPageProps> = ({
                   </span>
                 )}
 
-                {m?.drowsy_prob !== null && m?.drowsy_prob !== undefined && (
+                {typeof m?.drowsy_prob === "number" && (
                   <span className="px-2 py-1 rounded bg-black/60 text-white font-mono text-[11px] backdrop-blur-sm">
                     MobileNet: {(m.drowsy_prob * 100).toFixed(0)}% Drowsy
                   </span>
@@ -514,9 +514,9 @@ export const LiveMonitoringPage: React.FC<LiveMonitoringPageProps> = ({
                   Eye Aspect Ratio (EAR)
                 </span>
                 <span className="font-mono font-bold text-fleet-text">
-                  {m ? m.ear.toFixed(3) : "—"}
+                  {typeof m?.ear === "number" ? m.ear.toFixed(3) : "—"}
                   <span className="text-[11px] font-normal text-fleet-muted ml-1">
-                    (L: {m ? m.left_ear.toFixed(2) : "—"} | R: {m ? m.right_ear.toFixed(2) : "—"})
+                    (L: {typeof m?.left_ear === "number" ? m.left_ear.toFixed(2) : "—"} | R: {typeof m?.right_ear === "number" ? m.right_ear.toFixed(2) : "—"})
                   </span>
                 </span>
               </div>
@@ -531,7 +531,7 @@ export const LiveMonitoringPage: React.FC<LiveMonitoringPageProps> = ({
                       : "text-fleet-text"
                   }`}
                 >
-                  {m ? `${m.eye_closure_sec.toFixed(2)}s` : "0.0s"}
+                  {typeof m?.eye_closure_sec === "number" ? `${m.eye_closure_sec.toFixed(2)}s` : "0.0s"}
                 </span>
               </div>
 
@@ -542,7 +542,7 @@ export const LiveMonitoringPage: React.FC<LiveMonitoringPageProps> = ({
                   Mouth Ratio (MAR)
                 </span>
                 <span className="font-mono font-bold text-fleet-text">
-                  {m ? m.mar.toFixed(3) : "—"}
+                  {typeof m?.mar === "number" ? m.mar.toFixed(3) : "—"}
                   {m?.is_yawning && (
                     <span className="text-[10px] text-fleet-warning font-bold ml-1.5">
                       YAWNING
@@ -558,7 +558,9 @@ export const LiveMonitoringPage: React.FC<LiveMonitoringPageProps> = ({
                   Head Pose (Yaw / Pitch)
                 </span>
                 <span className="font-mono font-bold text-fleet-text">
-                  {m ? `${m.yaw.toFixed(0)}° / ${m.pitch.toFixed(0)}°` : "—"}
+                  {typeof m?.yaw === "number" && typeof m?.pitch === "number"
+                    ? `${m.yaw.toFixed(0)}° / ${m.pitch.toFixed(0)}°`
+                    : "—"}
                   <span className="text-[11px] text-fleet-muted ml-1">
                     [{m?.head_direction || "FORWARD"}]
                   </span>
@@ -575,7 +577,7 @@ export const LiveMonitoringPage: React.FC<LiveMonitoringPageProps> = ({
                       : "text-fleet-text"
                   }`}
                 >
-                  {m ? `${m.distraction_sec.toFixed(1)}s` : "0.0s"}
+                  {typeof m?.distraction_sec === "number" ? `${m.distraction_sec.toFixed(1)}s` : "0.0s"}
                 </span>
               </div>
 
@@ -594,7 +596,7 @@ export const LiveMonitoringPage: React.FC<LiveMonitoringPageProps> = ({
                       : "text-fleet-muted"
                   }`}
                 >
-                  {m?.phone_detected
+                  {m?.phone_detected && typeof m.phone_confidence === "number"
                     ? `DETECTED (${(m.phone_confidence * 100).toFixed(0)}%)`
                     : m?.phone_available
                     ? "None Visible"
@@ -606,7 +608,7 @@ export const LiveMonitoringPage: React.FC<LiveMonitoringPageProps> = ({
               <div className="flex items-center justify-between py-1">
                 <span className="text-fleet-muted">MobileNetV3 Classification</span>
                 <span className="font-mono font-bold text-fleet-text">
-                  {m?.drowsy_prob !== null && m?.drowsy_prob !== undefined
+                  {typeof m?.drowsy_prob === "number"
                     ? `${(m.drowsy_prob * 100).toFixed(1)}% Drowsy`
                     : "Awaiting checkpoint"}
                 </span>

@@ -127,11 +127,21 @@ Evaluated on the held-out test split of **800 real driver images** (400 Alert / 
 | **Mean Inference Latency** | **7.44 ms** | $< 33.3\text{ ms } (30\text{ FPS})$ |
 | **95th Percentile Latency** | **9.20 ms** | Edge Real-time Compliant |
 
-### Evaluation Plots (Generated in `results/plots/`):
-- **Confusion Matrix:** `results/plots/confusion_matrix.png`
-- **ROC Curve:** `results/plots/roc_curve.png`
-- **Loss Convergence History:** `results/plots/loss_curves.png`
-- **Accuracy Progression:** `results/plots/accuracy_curves.png`
+### Training & Validation Performance Curves:
+
+![MobileNetV3 Training and Validation Curves](results/plots/training_validation_curves.png)
+
+<p align="center">
+  <img src="results/plots/loss_curves.png" width="48%" alt="Training &amp; Validation Loss History" />
+  <img src="results/plots/accuracy_curves.png" width="48%" alt="Training &amp; Validation Accuracy History" />
+</p>
+
+### Diagnostic & Benchmark Plots:
+
+<p align="center">
+  <img src="results/plots/confusion_matrix.png" width="48%" alt="Test Set Confusion Matrix" />
+  <img src="results/plots/roc_curve.png" width="48%" alt="Test Set ROC Curve" />
+</p>
 
 ---
 

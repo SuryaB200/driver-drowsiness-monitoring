@@ -70,6 +70,31 @@ def plot_training_curves(history: Dict[str, Any]):
     plt.savefig(PLOTS_DIR / "accuracy_curves.png")
     plt.close()
 
+    # 3. Dual-panel combined Training & Validation Curves
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(13, 4.5), dpi=150)
+    ax1.plot(epochs, history["train_loss"], 'o-', color='#2457A7', label='Training Loss', linewidth=2)
+    ax1.plot(epochs, history["val_loss"], 's--', color='#C43D3D', label='Validation Loss', linewidth=2)
+    ax1.set_title('Training & Validation Loss', fontsize=12, fontweight='bold', pad=10)
+    ax1.set_xlabel('Epoch', fontsize=10)
+    ax1.set_ylabel('CrossEntropy Loss', fontsize=10)
+    ax1.grid(True, linestyle=':', alpha=0.6)
+    ax1.legend(frameon=True, facecolor='white', framealpha=0.9)
+    ax1.set_xticks(epochs)
+
+    ax2.plot(epochs, train_acc_pct, 'o-', color='#287D52', label='Training Accuracy', linewidth=2)
+    ax2.plot(epochs, val_acc_pct, 's--', color='#B7791F', label='Validation Accuracy', linewidth=2)
+    ax2.set_title('Training & Validation Accuracy', fontsize=12, fontweight='bold', pad=10)
+    ax2.set_xlabel('Epoch', fontsize=10)
+    ax2.set_ylabel('Accuracy (%)', fontsize=10)
+    ax2.set_ylim(0, 105)
+    ax2.grid(True, linestyle=':', alpha=0.6)
+    ax2.legend(frameon=True, facecolor='white', framealpha=0.9)
+    ax2.set_xticks(epochs)
+
+    plt.tight_layout()
+    plt.savefig(PLOTS_DIR / "training_validation_curves.png")
+    plt.close()
+
 
 def plot_confusion_matrix(cm: np.ndarray, class_names: list):
     """Plots and saves normalized confusion matrix."""
