@@ -68,6 +68,13 @@ export const LiveMonitoringPage: React.FC<LiveMonitoringPageProps> = ({
 
   const overlayCanvasRef = useRef<HTMLCanvasElement | null>(null);
   const frameIntervalRef = useRef<number | null>(null);
+  const isAwaitingBackendRef = useRef<boolean>(false);
+  const lastSendTimeRef = useRef<number>(0);
+
+  // Release backend wait flag as soon as telemetry arrives
+  useEffect(() => {
+    isAwaitingBackendRef.current = false;
+  }, [telemetry]);
 
   // Auto-trigger audio warnings when incoming assessment specifies audio payload
   useEffect(() => {
@@ -76,20 +83,29 @@ export const LiveMonitoringPage: React.FC<LiveMonitoringPageProps> = ({
     }
   }, [telemetry, handleAudioAlert, settings]);
 
-  // Frame streaming loop: capture browser frame and send to backend WebSocket
+  // Frame streaming loop: capture browser frame and send to backend with dynamic backpressure flow control
   useEffect(() => {
     if (isStreaming) {
       frameIntervalRef.current = window.setInterval(() => {
+        const now = Date.now();
+        // Drop tick if backend is still analyzing previous frame (up to 250ms timeout) to prevent queue buffering
+        if (isAwaitingBackendRef.current && now - lastSendTimeRef.current < 250) {
+          return;
+        }
+
         const frameData = captureFrameJpeg();
         if (frameData) {
+          isAwaitingBackendRef.current = true;
+          lastSendTimeRef.current = now;
           onSendFrame(frameData);
         }
-      }, 45); // ~22 FPS
+      }, 50); // ~20 FPS max, automatically syncs with inference latency
     } else {
       if (frameIntervalRef.current) {
         clearInterval(frameIntervalRef.current);
         frameIntervalRef.current = null;
       }
+      isAwaitingBackendRef.current = false;
     }
     return () => {
       if (frameIntervalRef.current) {

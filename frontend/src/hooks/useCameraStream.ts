@@ -77,17 +77,21 @@ export function useCameraStream() {
       const targetDeviceId = deviceIdToUse || selectedDeviceId;
 
       try {
-        const constraints: MediaStreamConstraints = {
-          video: {
-            deviceId: targetDeviceId ? { exact: targetDeviceId } : undefined,
-            width: { ideal: 1280, min: 640 },
-            height: { ideal: 720, min: 480 },
-            frameRate: { ideal: 30, min: 15 },
-          },
-          audio: false,
-        };
+        const videoConstraints: MediaTrackConstraints = targetDeviceId
+          ? { deviceId: { exact: targetDeviceId }, width: { ideal: 1280 }, height: { ideal: 720 }, frameRate: { ideal: 30 } }
+          : { width: { ideal: 1280 }, height: { ideal: 720 }, frameRate: { ideal: 30 } };
 
-        const stream = await navigator.mediaDevices.getUserMedia(constraints);
+        let stream: MediaStream;
+        try {
+          stream = await navigator.mediaDevices.getUserMedia({ video: videoConstraints, audio: false });
+        } catch (constraintErr) {
+          // Fallback to basic video constraints if mobile camera cannot satisfy resolution/fps
+          console.warn("Retrying with unrestricted video constraints for mobile camera:", constraintErr);
+          stream = await navigator.mediaDevices.getUserMedia({
+            video: targetDeviceId ? { deviceId: { ideal: targetDeviceId } } : true,
+            audio: false,
+          });
+        }
         streamRef.current = stream;
 
         if (videoRef.current) {
@@ -116,6 +120,8 @@ export function useCameraStream() {
           msg = "Selected camera device was not found or is disconnected.";
         } else if (err.name === "NotReadableError" || err.name === "TrackStartError") {
           msg = "Camera is currently in use by another application.";
+        } else if (err.name === "OverconstrainedError") {
+          msg = "Camera does not support requested settings. Switched to compatibility mode.";
         }
         setCameraError(msg);
         setIsStreaming(false);
